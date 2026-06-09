@@ -1,14 +1,22 @@
 #!/usr/bin/env bash
 
 # ================= CONFIGURATION =================
+# Load .env if it exists in the script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -f "${SCRIPT_DIR}/.env" ]]; then
+    set -a
+    source "${SCRIPT_DIR}/.env"
+    set +a
+fi
+
 ZOIPER_CMD="zoiper5"
 ZOIPER_PHONE="${ZOIPER_PHONE:-<YOUR_ZOIPER_PHONE_NUMBER>}"
-SINK_NAME="voip_virt"
+SINK_NAME="${SINK_NAME:-voip_virt}"
 # We define the monitor explicitly here to ensure consistent usage
 MONITOR_NAME="${SINK_NAME}.monitor"
 WAVE_FILE="${ZOIPER_WAVE_FILE:-./audiosamples/sample-speech-30m.wav}"
-TOTAL_DURATION=1800
-MPV_VOLUME=35
+TOTAL_DURATION="${ZOIPER_TOTAL_DURATION:-1800}"
+MPV_VOLUME="${ZOIPER_MPV_VOLUME:-35}"
 # =================================================
 
 log() { echo -e "\033[0;32m[$(date '+%H:%M:%S')] $1\033[0m"; }

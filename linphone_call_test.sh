@@ -4,16 +4,25 @@
 SCRIPT_NAME="linphone_call_test"
 LINPHONEC_CMD="linphonec"
 LINPHONEC_SH="linphonecsh"
+
+# Load .env if it exists in the script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -f "${SCRIPT_DIR}/.env" ]]; then
+    set -a
+    source "${SCRIPT_DIR}/.env"
+    set +a
+fi
+
 DEST_PHONE="${DEST_PHONE:-<YOUR_PHONE_NUMBER>}"
-SINK_NAME="voip_virt"
+SINK_NAME="${SINK_NAME:-voip_virt}"
 MONITOR_NAME="${SINK_NAME}.monitor"
-VOIP_8K_SINK="voip_virt_8k"
+VOIP_8K_SINK="${VOIP_8K_SINK:-voip_virt_8k}"
 VOIP_8K_MONITOR="${VOIP_8K_SINK}.monitor"
-WAVE_FILE="audiosamples/sample-speech-30m.wav"
-TEST_CALL_WAVE="audiosamples/wopr_strangegame.wav"
-DEFAULT_LOG_LEVEL=3
-DEFAULT_TEST_DURATION=1800
-MPV_VOLUME=100
+WAVE_FILE="${AUDIO_WAVE_FILE:-audiosamples/sample-speech-30m.wav}"
+TEST_CALL_WAVE="${TEST_CALL_WAVE:-audiosamples/wopr_strangegame.wav}"
+DEFAULT_LOG_LEVEL="${DEFAULT_LOG_LEVEL:-3}"
+DEFAULT_TEST_DURATION="${DEFAULT_TEST_DURATION:-1800}"
+MPV_VOLUME="${MPV_VOLUME:-100}"
 
 # Runtime variables
 LOG_FILE=""
