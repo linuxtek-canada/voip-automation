@@ -2,8 +2,9 @@
 *.log
 /tmp/linphone-*
 
-# Audiosamples
-audiosamples/
+# Audiosamples - Empty Directory
+audiosamples/*
+!audiosamples/.gitkeep
 
 # Environment
 .env
