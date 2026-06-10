@@ -71,20 +71,6 @@ read -n1 -p "Zoiper is dialing. Press any key ONCE the IVR is active..."
 echo ""
 
 log "Warming up stream..."
-play_digit "1" && sleep 1 
-
-play_sequence() { for (( i=0; i<${#1}; i++ )); do play_digit "${1:$i:1}"; done; }
-
-log "Playing Sequence 1: 30416473#"
-play_sequence "30416473#"
-log "Pause: 5s"
-sleep 5
-
-log "Playing Sequence 2: 123123#"
-play_sequence "123123#"
-log "Pause: 5s"
-sleep 5
-
 log "Starting background audio via $SINK_NAME..."
 mpv --no-video --loop --audio-device="pulse/$SINK_NAME" --volume="$MPV_VOLUME" "$WAVE_FILE" &
 MPV_PID=$!

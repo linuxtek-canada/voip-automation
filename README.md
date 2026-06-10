@@ -186,6 +186,16 @@ chmod +x zoiper_call_test.sh
 
 Runs a 30-minute IVR test with DTMF sequences and background audio playback through Zoiper.
 
+Once the call is established, manually enter any DTMF prompts through Zoiper. We had tried to simulate this, but some phone systems would not recognize it.
+
+In the script, you will see "Zoiper is dialing. Press any key ONCE the IVR is active...". Once you are past the IVR prompts, press any button, and the audio clip will start playing, looped for 30 minutes.
+
+Alternatively, you can manually play audio through the virtual sink using the following command line tool:
+
+```
+mpv --no-video --loop --audio-device=pulse/voip_virt --af="pan=mono,aresample=8000,volume=+2dB" ~/audiosamples/sample-speech-30m.mp3
+```
+
 ### dtmf_test.sh
 
 Standalone DTMF tone generator. Sends a DTMF sequence (`1-5-9-#`) through a virtual audio sink for testing tone detection.
@@ -194,8 +204,8 @@ Standalone DTMF tone generator. Sends a DTMF sequence (`1-5-9-#`) through a virt
 chmod +x dtmf_test.sh
 ./dtmf_test.sh
 ```
-
 Will prompt you to open `pavucontrol` and verify the virtual sink monitor input device.
+Note that many phone systems will not recognize simulated DTMF tones, whether in-band or RFC2833 via this method.
 
 ## Architecture
 
